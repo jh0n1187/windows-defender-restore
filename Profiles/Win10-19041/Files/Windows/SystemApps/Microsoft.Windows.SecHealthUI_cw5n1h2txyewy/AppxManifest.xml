@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+         xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+         IgnorableNamespaces="uap rescap">
+
+  <Identity Name="Microsoft.Windows.SecHealthUI"
+            Publisher="CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+            Version="10.0.19041.3636"/>
+
+  <Properties>
+    <DisplayName>ms-resource:PackageDisplayName</DisplayName>
+    <Description>ms-resource:ProductDescription</Description>
+    <PublisherDisplayName>Microsoft Corporation</PublisherDisplayName>
+    <Logo>Assets\DefenderAppSplashScreen.scale-400.png</Logo>
+  </Properties>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+  <Applications>
+    <Application Id="SecHealthUI" Executable="SecHealthUI.exe" EntryPoint="SecHealthUIAppShell.App">
+      <uap:VisualElements DisplayName="ms-resource:DisplayName" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="ms-resource:Description" BackgroundColor="transparent">
+        <uap:SplashScreen Image="Assets\DefenderAppSplashScreen.scale-400.png"/>
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="portrait"/>
+        </uap:InitialRotationPreference>
+        <uap:DefaultTile ShortName="ms-resource:AppName" Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\Square71x71Logo.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+      </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="all">
+            <uap:SupportedFileTypes>
+              <uap:FileType>.all</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="windowsdefender" />
+        </uap:Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="SecHealthUIViewModels.BackGroundQuickScanTaskViewModel">
+          <BackgroundTasks>
+            <Task Type="systemEvent"/>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="SecHealthUIDataModel.BackGroundQuickScanTask">
+          <BackgroundTasks>
+            <Task Type="systemEvent"/>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17083.0" MaxVersionTested="10.0.19041.3636"/>
+  </Dependencies>
+  <!-- Capabilities for the window security app -->
+  <Capabilities>
+    <Capability Name="internetClient"/>
+    <uap:Capability Name="documentsLibrary" />
+    <rescap:Capability Name="slapiQueryLicenseValue" />
+    <Capability Name="privateNetworkClientServer" />
+  </Capabilities>
+  <Extensions>
+    <!-- InProcessServer -->
+    <Extension Category="windows.activatableClass.inProcessServer">
+      <InProcessServer>
+        <Path>SecHealthUITelemetry.dll</Path>
+        <ActivatableClass ActivatableClassId="SecHealthUITelemetry.TelemetryHelper" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUITelemetry.UsageTracker" ThreadingModel="both"/>
+      </InProcessServer>
+    </Extension>
+    <Extension Category="windows.activatableClass.inProcessServer">
+      <InProcessServer>
+        <Path>SecHealthUIViewModels.dll</Path>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.CustomJumpListViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.DashboardAccountPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.DashboardAppBrowserPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.DashboardFirewallPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.DashboardFamilyPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.DashboardHardwarePageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.DashboardHealthPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.DashboardThreatPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.AccountLandingPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.AppBrowserLandingPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.AppGuardSettingsPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ExploitMitigationPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ExploitMitigationFlyoutViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.SmartScreenPuaSettingsPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.SystemMitigationsViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.SystemMitigationViewModelFactory" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.SystemMitigationEntryViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.AppMitigationEntryViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.AppMitigationViewModelFactory" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.AppsMitigationsViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.FamilyLandingPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.FirewallLandingPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.FirewallDomainPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.FirewallPrivatePageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.FirewallPublicPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.NetworkProfileItem" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.TPMItem" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ClearTpmViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.HardwareLandingPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ManageTPMPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ManageCoreSecurityPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.HvciIncompatibleItem" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.IncompatibleDriversViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.AdvancedTpmPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.HealthFreshStartPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.HealthLandingPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.HealthAdvisorStatusCodeMap" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.HealthAdvisorStatusCodeModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.HealthReportListView" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.HealthReportItemViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.AssessmentActionItem" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatLandingPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatFullHistoryPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.OfflineThreatScheduleDialogViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatExclusionsPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatScanHistoryPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatItem" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThirdPartyItem" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatSampleSubmissionDialogViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatFolderGuardAllowExistingDialogViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatFolderGuardRemoveFromExclusionsDialogViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatFolderGuardRemoveFromFolderGuardDialogViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatFolderGuardRemoveFromProtectedDialogViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatFolderGuardAllowAppPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatFolderGuardProtectedFoldersPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatFolderGuardFolderListItem" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatFolderGuardAppListItem" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.SampleItem" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatAdvancedScanPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatSettingsPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatAddProcessDialogViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatAddFileTypeDialogViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatUpdatesPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ExclusionItem" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.DashboardViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseDashboardPageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BasePageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseCommandViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseGlyphViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseMessageStatusViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseScanViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseScanExecuteViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseScanResultsViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseCleanThreatsViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseListViewItem" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseAddButtonListViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseSimpleListViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseSectionHeaderViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.SettingsLandingPageViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.AboutPageViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.PlaceHolderViewModel1" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.PlaceHolderViewModel2" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.PlaceHolderViewModel3" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.PlaceHolderViewModel4" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.PlaceHolderViewModel5" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseManagabilityViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.AppDisabledPageViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.NetworkShieldViewModelFactory" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.FirewallBaseViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.NetworkShieldStrings" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.PublicFirewallStrings" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.PrivateFirewallStrings" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.DomainFirewallStrings" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.CloudBackupProvidersDashboardViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatRansomwarePageViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatProtectionItemFactory" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatLandingPageLightViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatProtectionStatusItem" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.CloudProtectionSettingsViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.AutoSampleSubmissionProtectionSettingsViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.RealTimeProtectionSettingsViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ThreatProtectionOptionsViewModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.BackGroundQuickScanTaskViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.PotentiallyUnwantedApplicationSettingsViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseSideNavViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.WindowsCommunitySideNavViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.TipsSideNavViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.ProviderSideNavViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.FeedbackSideNavViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.SideNavViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.FirewallSideNavViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.CfaBlockedAppItem" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.CfaRecentlyBlockedDialogViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.ManageProvidersViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.HistoryViewModel" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.BaseHistoryItem" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.CfaBlockedActionItem" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIViewModels.Base.BaseAllowThreatViewModel" ThreadingModel="both"/>
+      </InProcessServer>
+    </Extension>
+    <Extension Category="windows.activatableClass.inProcessServer">
+      <InProcessServer>
+        <Path>SecHealthUIDataModel.dll</Path>
+        <ActivatableClass ActivatableClassId="SecHealthUIDataModel.SecHealthUIServiceMetaData" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIDataModel.Internal.StateServiceConnection" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="SecHealthUIDataModel.DefenderRemediation" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIDataModel.HardwareDataModel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SecHealthUIDataModel.BackGroundQuickScanTask" ThreadingModel="both" />
+      </InProcessServer>
+    </Extension>
+  </Extensions>
+</Package>

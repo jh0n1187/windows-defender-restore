@@ -1,0 +1,6 @@
+# Gerados em cada maquina
+Logs/
+Backup/
+
+# Pacotes offline opcionais colocados pelo usuario (mpam-fe.exe, updateplatform.exe)
+Updates/
